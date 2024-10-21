@@ -1,0 +1,237 @@
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    @include padding-y(0.8rem, 0.8rem);
+    @include transition(background-color, 0.2s, linear);
+
+    &.sticky {
+        background-color: var(--black-color);
+    }
+}
+
+.navbar {
+    @include flexbox(space-between, center);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Roboto:ital,wght@0,300;1,500&display=swap');
+
+.nav_logo {
+    @include devices(xs) {
+        font-size: 1.2rem;
+    }
+
+    font-family: "Dancing Script",
+    cursive;
+}
+
+.nav_actions {
+    @include flexbox($alignItems: center);
+    gap: 3rem;
+    font-size: 1.5rem;
+
+    @include devices(xs) {
+        gap: 2.5rem;
+        font-size: 1.2rem;
+    }
+}
+
+.search_action,
+.cart_action,
+.user_action {
+    position: relative;
+}
+
+.search_action,
+.cart_action {
+    &:hover .tooltip {
+        @include toggleVisibility(visible, 1);
+    }
+}
+
+.search_action,
+.user_action {
+    span {
+        cursor: pointer;
+    }
+}
+
+.cart_action {
+
+    .badge {
+        @include centered;
+        @include dimension(20px, 20px);
+        position: absolute;
+        top: 0;
+        right: -20px;
+        background-color: var(--main-color-2);
+        border-radius: 50%;
+    }
+}
+
+.nav_text {
+    display: flex;
+
+    .box {
+        margin: 0 20px;
+        cursor: pointer;
+
+        .dropdown_text {
+            position: absolute;
+            background-color: var(--bg-color-2);
+            font-size: 0.9rem;
+            border-radius: 3px;
+            width: 13rem;
+            top: 50px;
+            padding: 1.4rem;
+            @include bordered(1px, var(--text-muted));
+            @include toggleVisibility(hidden, 0);
+            @include transition(all, 0.2s, ease-in-out);
+
+            li {
+                &:not(:last-child) {
+                    margin-bottom: 0.5rem;
+                }
+
+                a:hover {
+                    color: #eee;
+                }
+            }
+        }
+
+        p,
+        h4 {
+            font-weight: 600;
+            text-transform: capitalize;
+            &:hover {
+                color: #eee;
+            }
+        }
+
+        &:hover .dropdown_text {
+            @include toggleVisibility(visible, 1);
+        }
+    }
+
+}
+
+
+.user_action {
+    .dropdown_menu {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: 17.5rem;
+        background-color: var(--bg-color-2);
+        padding: 1.4rem;
+        font-size: 0.9rem;
+        border-radius: 3px;
+        @include bordered(1px, var(--text-muted));
+        @include toggleVisibility(hidden, 0);
+        @include transition(all, 0.3s, ease-in-out);
+
+        h4 {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+
+            a {
+                color: var(--main-color);
+                opacity: 0.95;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        p {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        button {
+            margin-top: 1rem;
+            padding: 0.8rem 1rem;
+            @include bordered(1px, var(--text-muted));
+            @include transition(all, 0.3s, ease);
+
+            &:hover {
+                color: #eee;
+                border-color: #eee;
+            }
+        }
+
+        li {
+            &:not(:last-child) {
+                margin-bottom: 0.5rem;
+            }
+
+            a:hover {
+                color: #eee;
+            }
+        }
+    }
+
+    &:hover .dropdown_menu {
+        @include toggleVisibility(visible, 1);
+    }
+}
+
+.nav_text {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+
+    div {
+        width: 25px;
+        height: 2px;
+        background-color: #ffffff;
+        margin: 6px 0;
+        border-radius: 2px;
+    }
+}
+
+/* CSS cho màn hình nhỏ */
+@media (max-width: 800px) {
+    .nav_text {
+        display: none;
+    }
+
+    .nav_text {
+        position: absolute;
+        right: 0;
+        top: 8vh;
+        background-color: var(--bg-color-2);
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 34%;
+        height: 30vh;
+        margin-right: 5px;
+        max-height: 0; // Đặt max-height ban đầu là 0
+        transition: max-height 0.3s ease-out, opacity 0.1s; // Thêm hiệu ứng chuyển đổi cho max-height và opacity
+    
+        &.active {
+            max-height: 30vh; // Khi active, tăng max-height lên 30vh
+            opacity: 0.8; // Và thay đổi độ trong suốt
+        }
+    }
+    
+
+    .hamburger {
+        display: block;
+        justify-content: center;
+        align-items: center;
+    }
+    .dropdown_text{
+        right: 9rem;
+    }
+}
